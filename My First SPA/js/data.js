@@ -1,0 +1,2 @@
+export const cats = ["images/cat1.jpg", "images/cat2.jpg", "images/cat3.jpg", "images/cat4.jpg", "images/cat5.jpg", ]
+export const mice = ["images/mouse1.jpg", "images/mouse2.jpg", "images/mouse3.jpg", "images/mouse4.jpg", "images/mouse5.jpg", ]
