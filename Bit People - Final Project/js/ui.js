@@ -77,6 +77,13 @@ const uiModule = (($) => {
       $container.append($animation);
     }
 
+    const ifNoResults = () => {
+        $container.html("");
+        const $messageOnEmptySearchBar = $(`<div class="no-result"> <i class="large material-icons" id="refresh">face</i><h3>We couldn't find any people matching your search</h3>
+      </div>`);
+      $container.append($messageOnEmptySearchBar);
+    }
+
 
   
 
@@ -105,13 +112,16 @@ const uiModule = (($) => {
         }         
     }
 
+
+
     return {
         renderUsersList, 
         changeLayout, 
         renderUsersGrid, 
         resetSearch, 
         renderUsersPage,
-        renderOnLoad
+        renderOnLoad,
+        ifNoResults
     }
 
 })($);

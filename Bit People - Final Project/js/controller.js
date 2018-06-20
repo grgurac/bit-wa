@@ -23,17 +23,29 @@ const controller = ((data, ui) => {
 
     }
 
-
     const onLoad = () => {
         if (data.getUsers().length === 0) {
             ui.renderOnLoad()
         }
     }
 
+    const showMessage = () => {
+        if (data.filterUsers().length === 0) {
+            ui.ifNoResults();
+        }
+    }
+
     const onSearch = (event) => {
         const searchTerm = event.target.value
-        const users = data.filterUsers(searchTerm);
-        ui.renderUsersPage(users);
+        if (data.filterUsers(searchTerm).length === 0) {
+            console.log(data.filterUsers());
+
+            ui.ifNoResults();
+        } else {
+            const users = data.filterUsers(searchTerm);
+            ui.renderUsersPage(users);
+        }
+
     }
 
     const registerEventListeners = () => {
@@ -46,6 +58,7 @@ const controller = ((data, ui) => {
         onLoad();
         registerEventListeners();
         loadUsersList();
+        showMessage();
 
     }
 

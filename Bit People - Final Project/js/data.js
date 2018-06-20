@@ -43,6 +43,9 @@ const dataModule = (($) => {
         });
     }
 
+
+    
+
     const filterUsers = (searchValue) => {
         const userList = store.users
         const filteredUsers = [];
@@ -55,6 +58,8 @@ const dataModule = (($) => {
         return filteredUsers;
 
     }
+
+
 
     const getUsers = () => {
         // read from local storage

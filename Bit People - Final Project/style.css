@@ -8,6 +8,12 @@ body {
     flex: 1 0 auto;
   }
 
+  .no-result {
+    width: 50%;
+    margin: 200px auto;
+    text-align: center;
+  }
+
   .sk-cube-grid {
     width: 40px;
     height: 40px;
