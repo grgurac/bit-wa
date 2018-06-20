@@ -1,4 +1,8 @@
+
+
 const uiModule = (($) => {
+
+    let listLayout = true;
 
     const $search = $('#search');
     const $container = $("#container");
@@ -53,8 +57,33 @@ const uiModule = (($) => {
         $search.val('');
     }
 
+    const changeLayout = () =>{
+        listLayout = !listLayout;
+    }
+
+    const renderUsersPage = (users) => {
+        toggleLayoutButton()
+        if (listLayout) {
+            renderUsersList(users);
+        } else {
+            renderUsersGrid(users);
+        }  
+    }
+
+    const toggleLayoutButton = () => {
+        if (listLayout) {
+            $("#viewBtn").text("view_list");
+        } else {
+            $("#viewBtn").text("view_module");
+        }         
+    }
+
     return {
-        renderUsersList, renderUsersGrid, resetSearch
+        renderUsersList, 
+        changeLayout, 
+        renderUsersGrid, 
+        resetSearch, 
+        renderUsersPage
     }
 
 })($);

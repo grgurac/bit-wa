@@ -1,11 +1,9 @@
 const controller = ((data, ui) => {
-    const listLayout = true;
+   
 
-    const renderUsersPage = (users) => {
-        listLayout
-            ? ui.renderUsersList(users)
-            : ui.renderUsersGrid(users)
-    }
+    const $viewButton = $("#viewBtn");
+    const $searchBar = $('#search');
+    const $refreshButton = $('#refresh');
 
     const onRefresh = (event) => {
         ui.resetSearch();
@@ -14,19 +12,27 @@ const controller = ((data, ui) => {
 
     const loadUsersList = () => {
         data.fetchUsers(users => {
-            renderUsersPage(users)
+            ui.renderUsersPage(users)
         });
+    }
+
+    const onChangeLayout = () => {
+        const users = data.getUsers();
+        ui.changeLayout();
+        ui.renderUsersPage(users);
+
     }
 
     const onSearch = (event) => {
         const searchTerm = event.target.value
         const users = data.filterUsers(searchTerm);
-        renderUsersPage(users);
+        ui.renderUsersPage(users);
     }
 
     const registerEventListeners = () => {
-        $('#search').on('keyup', onSearch);
-        $('#refresh').on('click', onRefresh);
+        $searchBar.on('keyup', onSearch);
+        $refreshButton.on('click', onRefresh);
+        $viewButton.on('click', onChangeLayout)
     }
 
     const init = () => {
