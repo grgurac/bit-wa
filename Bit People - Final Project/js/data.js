@@ -1,7 +1,7 @@
 const dataModule = (($) => {
 
     const store = {
-        users: []
+        users: [],
     }
 
     class User {
@@ -38,6 +38,7 @@ const dataModule = (($) => {
 
             store.users = users
             // save to local storage
+            
             successHandler(users);
         });
     }
@@ -59,6 +60,7 @@ const dataModule = (($) => {
         // read from local storage
         return store.users;
     }
+
 
     return { fetchUsers, filterUsers, getUsers }
 })($);

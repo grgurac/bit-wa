@@ -1,5 +1,5 @@
 const controller = ((data, ui) => {
-   
+
 
     const $viewButton = $("#viewBtn");
     const $searchBar = $('#search');
@@ -23,6 +23,13 @@ const controller = ((data, ui) => {
 
     }
 
+
+    const onLoad = () => {
+        if (data.getUsers().length === 0) {
+            ui.renderOnLoad()
+        }
+    }
+
     const onSearch = (event) => {
         const searchTerm = event.target.value
         const users = data.filterUsers(searchTerm);
@@ -36,9 +43,14 @@ const controller = ((data, ui) => {
     }
 
     const init = () => {
+        onLoad();
         registerEventListeners();
         loadUsersList();
+
     }
+
+
+
 
     return {
         init

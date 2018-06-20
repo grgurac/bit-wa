@@ -7,12 +7,14 @@ const uiModule = (($) => {
     const $search = $('#search');
     const $container = $("#container");
 
+
+
     const renderUsersList = (users) => {
         $container.html("");
         
         $listOfUsers = $('<ul class="collection"></ul>');
         users.forEach(user => {
-            const $card = $(`
+                const $card = $(`
                 <li class="collection-item avatar">
                         <img src="${user.avatar}" alt="" class="circle">
                         <p>${user.name}</p>
@@ -21,8 +23,10 @@ const uiModule = (($) => {
                 </li>
             `);
             $listOfUsers.append($card);
+            if (user.gender === "female"){
+                $card.addClass ("red lighten-5")
+            }
         })
-
         $container.append($listOfUsers);
     }
 
@@ -48,10 +52,33 @@ const uiModule = (($) => {
              `);
 
             $row.append($card);
+            if (user.gender === "female"){
+                $card.addClass("red lighten-5")
+            }
         })
 
         $container.append($row);
     }
+
+
+    const renderOnLoad = () => {
+        $container.html("");
+        const $animation = $(`<div class="sk-cube-grid">
+        <div class="sk-cube sk-cube1"></div>
+        <div class="sk-cube sk-cube2"></div>
+        <div class="sk-cube sk-cube3"></div>
+        <div class="sk-cube sk-cube4"></div>
+        <div class="sk-cube sk-cube5"></div>
+        <div class="sk-cube sk-cube6"></div>
+        <div class="sk-cube sk-cube7"></div>
+        <div class="sk-cube sk-cube8"></div>
+        <div class="sk-cube sk-cube9"></div>
+      </div>`);
+      $container.append($animation);
+    }
+
+
+  
 
     const resetSearch = () => {
         $search.val('');
@@ -83,7 +110,8 @@ const uiModule = (($) => {
         changeLayout, 
         renderUsersGrid, 
         resetSearch, 
-        renderUsersPage
+        renderUsersPage,
+        renderOnLoad
     }
 
 })($);
