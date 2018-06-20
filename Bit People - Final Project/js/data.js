@@ -5,18 +5,19 @@ const dataModule = (($) => {
     }
 
     class User {
-        constructor (name, surname, dob, email, avatar, gender){
+        constructor (first, name, dob, email, avatar, avatarLarge, gender){
             const dateObj = new Date(dob);
+            this.firstName = first.toLowerCase(),
             this.name = name,
-            this.surname = surname,
             this.dob = `${dateObj.getDate()}.${dateObj.getMonth()}.${dateObj.getFullYear()}`
             this.email = email,
             this.avatar = avatar
+            this.avatarLarge = avatarLarge
             this.gender = gender
         }
     }
 
-    fetchUsers = (successHandler) => {
+    fetchUsers = successHandler => {
         const request = $.ajax ({
             url: "https://randomuser.me/api/?results=15",
             method: "GET",
@@ -25,7 +26,14 @@ const dataModule = (($) => {
         request.done((data) => {
             let usersData = data.results;
             let users = usersData.map(user => {
-                return new User(user.name.first, user.name.last, user.dob.date, user.email, user.picture.thumbnail, user.gender);
+                const first =` ${user.name.first[0].toUpperCase()}${user.name.first.slice(1)}`
+                const last =` ${user.name.last[0].toUpperCase()}${user.name.last.slice(1)}`
+                const name = `${first} ${last}`;
+                const email = user.email;
+                const splitEmail = email.split("@");
+                const lastThree = splitEmail[0].slice(splitEmail[0].length - 3);
+                const shortEmail = `${splitEmail[0].slice(0, 3)}...${lastThree}@${splitEmail[1]}`
+                return new User(first, name, user.dob.date, shortEmail, user.picture.thumbnail, user.picture.large, user.gender);
             })
 
             store.users = users
@@ -37,7 +45,7 @@ const dataModule = (($) => {
         const userList = store.users
         const filteredUsers = [];
         for (let i = 0; i < userList.length; i++) {
-            let liTitle = `${userList[i].name}`
+            let liTitle = `${userList[i].name.toLowerCase()}`
             if (liTitle.indexOf(searchValue) > -1) {
                 filteredUsers.push(userList[i]);
             }

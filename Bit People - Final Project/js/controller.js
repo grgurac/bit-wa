@@ -1,26 +1,39 @@
 const controller = ((data, ui) => {
-    
-    function loadData() {
+    const listLayout = true;
+
+    const renderUsersPage = (users) => {
+        listLayout
+            ? ui.renderUsersList(users)
+            : ui.renderUsersGrid(users)
+    }
+
+    const onRefresh = (event) => {
+        ui.resetSearch();
+        loadUsersList();
+    }
+
+    const loadUsersList = () => {
         data.fetchUsers(users => {
-            ui.displayUsers(users)
+            renderUsersPage(users)
         });
     }
 
-    function setupSearchHandler() {    
-        $('#search').on('keyup', function (event) {
-            const searchTerm = event.target.value
-            const filteredUsers = data.filterUsers(searchTerm);     
-            ui.displayUsers(filteredUsers)
-        })
+    const onSearch = (event) => {
+        const searchTerm = event.target.value
+        const users = data.filterUsers(searchTerm);
+        renderUsersPage(users);
     }
 
-    function init() {
-        // fetch initial data
-        loadData()
-        // Setup event handlers
-        setupSearchHandler()
+    const registerEventListeners = () => {
+        $('#search').on('keyup', onSearch);
+        $('#refresh').on('click', onRefresh);
     }
-    
+
+    const init = () => {
+        registerEventListeners();
+        loadUsersList();
+    }
+
     return {
         init
     }
