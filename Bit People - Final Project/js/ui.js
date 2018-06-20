@@ -1,11 +1,14 @@
-
-
 const uiModule = (($) => {
 
-    let listLayout = true;
+    let listLayoutString = localStorage.getItem("listView");
+    let listLayout = ( listLayoutString === "true") ? true : false;
 
     const $search = $('#search');
     const $container = $("#container");
+    const $viewButton = $("#viewBtn");
+    const $refreshButton = $('#refresh');
+
+
 
 
 
@@ -37,8 +40,7 @@ const uiModule = (($) => {
         $row = $('<div class="row"></div>');
         users.forEach(user => {
             const $card = $(`
-                <div class="col m4">
-                    <div class="card">
+                    <div class=" col m4 card">
                         <div class="card-image">
                             <img src="${user.avatarLarge}">
                             <span class="card-title">${user.firstName}</span>
@@ -48,7 +50,6 @@ const uiModule = (($) => {
                             <p>Birth date: ${user.dob}</p>
                         </div>
                     </div>
-                </div>
              `);
 
             $row.append($card);
@@ -84,6 +85,19 @@ const uiModule = (($) => {
       $container.append($messageOnEmptySearchBar);
     }
 
+    const showAboutPage = () => {
+        $container.html("");
+        const $aboutPage = $(`
+        <h1>About</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum lacinia velit, in posuere mi pretium pretium. Donec pretium mauris ante, non tempor turpis finibus accumsan. Curabitur in venenatis orci. Maecenas vel enim orci. Morbi maximus pharetra scelerisque. Duis a semper purus. Nullam elementum massa at porta varius. Nullam pharetra ex a eros lacinia blandit. Sed tempor consectetur convallis. Phasellus rutrum facilisis est. Integer euismod, est at suscipit laoreet, nibh metus aliquet quam, et vulputate orci felis sit amet leo. Integer malesuada nunc non erat faucibus mattis. Phasellus et lacus eget tellus ornare ultrices. Mauris et vulputate dui, sit amet placerat risus.
+
+        <h3>What we do</h3>
+
+        <p>Donec sodales euismod eros, vel interdum quam luctus nec. Aenean et lorem vel turpis ornare facilisis eu et urna. Cras aliquet orci vel dui ullamcorper ultricies. Maecenas venenatis, nunc sit amet suscipit vestibulum, est augue fringilla diam, in sollicitudin sem eros vitae nibh. Ut hendrerit urna aliquet, fringilla dolor eu, venenatis justo. Nullam feugiat dolor quis metus elementum sagittis. Aliquam bibendum magna nulla, in elementum magna molestie eget. Vivamus tristique turpis eu venenatis interdum. Proin eu venenatis felis, sit amet fermentum orci. Aliquam pulvinar id tellus non gravida. Vivamus ante lacus, vulputate id tempus vitae, cursus iaculis mauris. Suspendisse potenti.<p>
+        `);
+        $container.append($aboutPage);
+    }  
+
 
   
 
@@ -93,10 +107,12 @@ const uiModule = (($) => {
 
     const changeLayout = () =>{
         listLayout = !listLayout;
+        return listLayout;
     }
 
     const renderUsersPage = (users) => {
-        toggleLayoutButton()
+        toggleLayoutButton();
+        console.log(listLayout);
         if (listLayout) {
             renderUsersList(users);
         } else {
@@ -112,6 +128,16 @@ const uiModule = (($) => {
         }         
     }
 
+    const hideElements = () => {
+            $viewButton.hide();
+            $refreshButton.hide();
+    }
+
+    const showElements = () => {
+        $viewButton.show();
+        $refreshButton.show();
+}
+
 
 
     return {
@@ -121,7 +147,10 @@ const uiModule = (($) => {
         resetSearch, 
         renderUsersPage,
         renderOnLoad,
-        ifNoResults
+        ifNoResults,
+        showAboutPage,
+        hideElements,
+        showElements
     }
 
 })($);

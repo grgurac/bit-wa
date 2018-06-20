@@ -8,6 +8,11 @@ body {
     flex: 1 0 auto;
   }
 
+  .space li {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
   .no-result {
     width: 50%;
     margin: 200px auto;
