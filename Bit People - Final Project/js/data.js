@@ -3,7 +3,7 @@ const dataModule = (($) => {
     const store = {
         users: [],
     }
-
+    
     class User {
         constructor (first, name, dob, email, avatar, avatarLarge, gender){
             const dateObj = new Date(dob);
@@ -37,17 +37,22 @@ const dataModule = (($) => {
             })
 
             store.users = users
-            // save to local storage
-            
+                        
             successHandler(users);
+           
         });
+        
     }
-
-
     
 
+    const getUsers = () => {
+        return store.users;
+    }
+    
+    
     const filterUsers = (searchValue) => {
         const userList = store.users
+        
         const filteredUsers = [];
         for (let i = 0; i < userList.length; i++) {
             let liTitle = `${userList[i].name.toLowerCase()}`
@@ -60,12 +65,22 @@ const dataModule = (($) => {
     }
 
 
-
-    const getUsers = () => {
-        // read from local storage
-        return store.users;
+    const getGenderStatus = (users) => {
+        let male = 0;
+        let female = 0;
+        users.forEach(user => {
+            if (user.gender === "male"){
+                male ++                
+            }else {
+                female ++
+            }
+        })
+        
+        return `Male:${male} Female:${female}`;
     }
+    
 
 
-    return { fetchUsers, filterUsers, getUsers }
+
+    return { fetchUsers, filterUsers, getUsers, getGenderStatus }
 })($);

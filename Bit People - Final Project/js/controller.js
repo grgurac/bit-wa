@@ -8,6 +8,8 @@ const controller = ((data, ui) => {
     const $homePage = $("#homePage");
 
 
+    
+
     const onRefresh = (event) => {
         ui.resetSearch();
         loadUsersList();
@@ -16,6 +18,8 @@ const controller = ((data, ui) => {
     const loadUsersList = () => {
         data.fetchUsers(users => {
             ui.renderUsersPage(users)
+            const statsText = data.getGenderStatus(users)
+            ui.showGenderStats(statsText);
         });
     }
 
@@ -43,7 +47,6 @@ const controller = ((data, ui) => {
             const users = data.filterUsers(searchTerm);
             ui.renderUsersPage(users);
         }
-
     }
 
     const onAbout = () => {
@@ -66,9 +69,9 @@ const controller = ((data, ui) => {
     }
 
     const init = () => {
+        loadUsersList();
         onLoad();
         registerEventListeners();
-        loadUsersList();
         onBitPeople();
     }
 
