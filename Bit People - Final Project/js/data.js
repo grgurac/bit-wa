@@ -39,7 +39,6 @@ const dataModule = (($) => {
             store.users = users
                         
             successHandler(users);
-           
         });
         
     }
@@ -78,9 +77,20 @@ const dataModule = (($) => {
         
         return `Male:${male} Female:${female}`;
     }
+
+    const lastDate = () => {
+        const date = Date.now();
+        const formatedDate = Math.floor(date);  
+        localStorage.setItem("lastUpdate", formatedDate);
+    }
+    
+    const getLastUpdate = () => {
+        const timeFromLastVisit = Date.now() - parseInt(localStorage.getItem("lastUpdate"));
+        return Math.floor(timeFromLastVisit/1000);
+    }
+
     
 
 
-
-    return { fetchUsers, filterUsers, getUsers, getGenderStatus }
+    return { fetchUsers, filterUsers, getUsers, getGenderStatus, lastDate, getLastUpdate }
 })($);

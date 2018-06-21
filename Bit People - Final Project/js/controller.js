@@ -13,13 +13,18 @@ const controller = ((data, ui) => {
     const onRefresh = (event) => {
         ui.resetSearch();
         loadUsersList();
+        data.lastDate();
     }
+    ;
 
     const loadUsersList = () => {
         data.fetchUsers(users => {
-            ui.renderUsersPage(users)
-            const statsText = data.getGenderStatus(users)
+            ui.renderUsersPage(users);
+            const statsText = data.getGenderStatus(users);
+            const visitsText = (`Last visited ${data.getLastUpdate()} seconds ago`)
             ui.showGenderStats(statsText);
+            ui.showLastVisit(visitsText);
+            data.getLastUpdate();
         });
     }
 
@@ -31,22 +36,15 @@ const controller = ((data, ui) => {
 
     }
 
-    const onLoad = () => {
-        if (data.getUsers().length === 0) {
-            ui.renderOnLoad()
-        }
+    const showLoading = () => {
+        ui.renderOnLoad()
     }
 
 
 
     const onSearch = (event) => {
-        const searchTerm = event.target.value
-        if (data.filterUsers(searchTerm).length === 0) {
-            ui.ifNoResults();
-        } else {
-            const users = data.filterUsers(searchTerm);
-            ui.renderUsersPage(users);
-        }
+        const users = data.filterUsers(event.target.value);
+        ui.renderUsersPage(users);
     }
 
     const onAbout = () => {
@@ -69,10 +67,11 @@ const controller = ((data, ui) => {
     }
 
     const init = () => {
-        loadUsersList();
-        onLoad();
         registerEventListeners();
-        onBitPeople();
+        
+        showLoading();
+        
+        loadUsersList();
     }
 
 

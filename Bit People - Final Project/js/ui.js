@@ -4,25 +4,14 @@ const uiModule = (($) => {
     let listLayout = ( listLayoutString === "true") ? true : false;
 
 
-    const lastDate = () => {
-        const date = new Date ();
-        localStorage.setItem("last update", date);
-    }
-
-    const getLastUpdate = () => {
-        return new Date(localStorage.getItem("last update"));
-    }
-
- 
- 
-
 
     const $search = $('#search');
     const $container = $("#container");
     const $viewButton = $("#viewBtn");
     const $refreshButton = $('#refresh');
     const $stats = $("#show-stats");
-    const $statsDiv = $('#statsDiv')
+    const $statsDiv = $('#statsDiv');
+    const $visits = $('#visits');
 
 
 
@@ -134,6 +123,11 @@ const uiModule = (($) => {
 
     const renderUsersPage = (users) => {
         toggleLayoutButton();
+
+        if (!users.length) {
+            return ifNoResults();
+        }
+
         if (listLayout) {
             renderUsersList(users);
         } else {
@@ -159,6 +153,10 @@ const uiModule = (($) => {
         $refreshButton.show();
 }
 
+    const showLastVisit = (visits) => {
+        $visits.text(visits)
+    }
+
 
 
     return {
@@ -172,7 +170,8 @@ const uiModule = (($) => {
         showAboutPage,
         hideElements,
         showElements,
-        showGenderStats
+        showGenderStats,
+        showLastVisit
         
     }
 
