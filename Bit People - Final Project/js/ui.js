@@ -3,8 +3,6 @@ const uiModule = (($) => {
     let listLayoutString = localStorage.getItem("listView");
     let listLayout = ( listLayoutString === "true") ? true : false;
 
-
-
     const $search = $('#search');
     const $container = $("#container");
     const $viewButton = $("#viewBtn");
@@ -13,19 +11,16 @@ const uiModule = (($) => {
     const $statsDiv = $('#statsDiv');
     const $visits = $('#visits');
 
-
-
     const renderUsersList = (users) => {
-        $container.html("");
-        
+        $container.html(""); 
         $listOfUsers = $('<ul class="collection"></ul>');
         users.forEach(user => {
                 const $card = $(`
                 <li class="collection-item avatar">
-                        <img src="${user.avatar}" alt="" class="circle">
-                        <p>${user.name}</p>
-                        <div><i class="material-icons" id="refresh">mail</i><span>${user.email}</span></div>
-                        <div><i class="material-icons" id="refresh">cake</i><span>${user.dob}</span></div>
+                    <img src="${user.avatar}" alt="" class="circle">
+                    <p>${user.name}</p>
+                    <div><i class="material-icons" id="refresh">mail</i><span>${user.email}</span></div>
+                    <div><i class="material-icons" id="refresh">cake</i><span>${user.dob}</span></div>
                 </li>
             `);
             $listOfUsers.append($card);
@@ -35,7 +30,6 @@ const uiModule = (($) => {
         })
         $container.append($listOfUsers);
     }
-
 
     const renderUsersGrid = (users) => {
         $container.html("");
@@ -63,7 +57,6 @@ const uiModule = (($) => {
 
         $container.append($row);
     }
-
 
     const renderOnLoad = () => {
         $container.html("");
@@ -96,9 +89,7 @@ const uiModule = (($) => {
         <div class = "col m">
         <h1>About</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum lacinia velit, in posuere mi pretium pretium. Donec pretium mauris ante, non tempor turpis finibus accumsan. Curabitur in venenatis orci. Maecenas vel enim orci. Morbi maximus pharetra scelerisque. Duis a semper purus. Nullam elementum massa at porta varius. Nullam pharetra ex a eros lacinia blandit. Sed tempor consectetur convallis. Phasellus rutrum facilisis est. Integer euismod, est at suscipit laoreet, nibh metus aliquet quam, et vulputate orci felis sit amet leo. Integer malesuada nunc non erat faucibus mattis. Phasellus et lacus eget tellus ornare ultrices. Mauris et vulputate dui, sit amet placerat risus.
-
         <h3>What we do</h3>
-
         <p>Donec sodales euismod eros, vel interdum quam luctus nec. Aenean et lorem vel turpis ornare facilisis eu et urna. Cras aliquet orci vel dui ullamcorper ultricies. Maecenas venenatis, nunc sit amet suscipit vestibulum, est augue fringilla diam, in sollicitudin sem eros vitae nibh. Ut hendrerit urna aliquet, fringilla dolor eu, venenatis justo. Nullam feugiat dolor quis metus elementum sagittis. Aliquam bibendum magna nulla, in elementum magna molestie eget. Vivamus tristique turpis eu venenatis interdum. Proin eu venenatis felis, sit amet fermentum orci. Aliquam pulvinar id tellus non gravida. Vivamus ante lacus, vulputate id tempus vitae, cursus iaculis mauris. Suspendisse potenti.<p>
         </div>
         </div>
@@ -157,8 +148,6 @@ const uiModule = (($) => {
         $visits.text(visits)
     }
 
-
-
     return {
         renderUsersList, 
         changeLayout, 
@@ -171,8 +160,7 @@ const uiModule = (($) => {
         hideElements,
         showElements,
         showGenderStats,
-        showLastVisit
-        
+        showLastVisit 
     }
 
 })($);
